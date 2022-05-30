@@ -6,6 +6,7 @@ const plusButton = document.getElementById('plus');
 const heartButton = document.getElementById('heart');
 const submitButton = document.getElementById('submit');
 let number = parseInt(counter.innerHTML);
+let numberText = counter.innerText;
 
 pauseButton.addEventListener('click', () => {
   const buttonStatus = pauseButton.innerHTML;
@@ -24,10 +25,23 @@ pauseButton.addEventListener('click', () => {
 
 //setInterval to increment counter
 const interval = setInterval(() => {
+  let countLikes = 0;
+  // console.log(number);
   if(!isPaused) {
+    const ul = document.querySelector('.likes');
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    heartButton.addEventListener('click', () => {
+      // span.innerHTML = `${++countLikes}`
+      // li.innerHTML = `${number} has been liked ${span.innerHTML} times`;
+      li.innerHTML = number + " has been liked <span>"+(countLikes++)+"</span>";
+      ul.append(li);
+    });
     number++;
     counter.innerText = number;
+    // console.log(number);
   }
+  countLikes = 0;
 }, 1000);
 
 minusButton.addEventListener('click', () => {
@@ -40,14 +54,11 @@ plusButton.addEventListener('click', () => {
   counter.innerText = number;
 });
 
-let countLikes = 0;
-const ul = document.querySelector('.likes');
-const li = document.createElement('li');
+// heartButton.addEventListener('click', () => {
+//   li.innerHTML = `${number} has been liked ${++countLikes} times`;
+//   ul.append(li);
+// });
 
-heartButton.addEventListener('click', () => {
-  li.innerHTML = `${number} has been liked ${++countLikes} times`;
-  ul.appendChild(li);
-});
 
 function disableButtons(disable) {
   minusButton.disabled = disable;
